@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "bigint-isqrt": "^0.3.2"
+  }
+}

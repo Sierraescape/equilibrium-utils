@@ -19,3 +19,6 @@ lcov.info
 # MAC files
 .DS_Store
 __MACOSX
+
+# Dependencies
+node_modules/
