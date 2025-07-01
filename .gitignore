@@ -20,5 +20,10 @@ lcov.info
 .DS_Store
 __MACOSX
 
+# Hardhat
+artifacts/
+cache_hardhat/
+typechain-types/
+
 # Dependencies
 node_modules/

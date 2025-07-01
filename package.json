@@ -21,6 +21,8 @@
     "bigint-isqrt": "^0.3.2"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-foundry": "^1.1.4"
+    "@nomicfoundation/hardhat-foundry": "^1.1.4",
+    "@nomicfoundation/hardhat-toolbox": "^6.0.0",
+    "hardhat": "^2.25.0"
   }
 }
