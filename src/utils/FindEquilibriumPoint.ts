@@ -1,4 +1,30 @@
-import { sqrt as bigintSqrt } from 'bigint-isqrt';
+const sqrt = function (value: bigint) {
+	if (value < 2n) {
+		return value;
+	}
+
+	if (value < 16n) {
+		return BigInt(Math.sqrt(Number(value))|0);
+	}
+	
+    let x0, x1;
+	if(value < 4503599627370496n){//1n<<52n
+		x1 = BigInt(Math.sqrt(Number(value))|0)-3n;
+	} else {
+		let vlen = value.toString().length;
+		if (!(vlen&1)) {
+			x1 = 10n**(BigInt(vlen/2));
+		} else {
+			x1 = 4n*10n**(BigInt((vlen/2)|0));
+		}
+	}
+
+	do {
+		x0 = x1;
+		x1 = ((value / x0) + x0) >> 1n;
+	}while((x0 !== x1 && x0 !== (x1 - 1n)));
+	return x0;
+}
 
 const PRECISION = 10n ** 18n;
 
@@ -15,7 +41,7 @@ function checkValidUint(
 }
 
 function ceilSqrt(n: bigint): bigint {
-    const root = bigintSqrt(n);
+    const root = sqrt(n);
     return root * root < n ? root + 1n : root;
 }
 
@@ -43,13 +69,13 @@ function fInverse(y: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: 
     const absB = B < 0n ? -B : B;
     let squaredB = B ** 2n;
     let discriminant = squaredB + fourAC
-    let sqrt = ceilSqrt(discriminant);
+    let thisSqrt = ceilSqrt(discriminant);
 
     let x;
     if (B <= 0n) {
-        x = ceilDiv((absB + sqrt) * PRECISION, (2n * c) + 1n);
+        x = ceilDiv((absB + thisSqrt) * PRECISION, (2n * c) + 1n);
     } else {
-        x = ceilDiv(2n * C, absB + sqrt) + 1n;
+        x = ceilDiv(2n * C, absB + thisSqrt) + 1n;
     }
 
     if (x >= x0) {
