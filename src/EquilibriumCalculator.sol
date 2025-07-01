@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity ^0.8.27;
 
-import {IEVC} from "evc/interfaces/IEthereumVaultConnector.sol";
-import {IEVault} from "evk/EVault/IEVault.sol";
+import {IEVC} from "ethereum-vault-connector/interfaces/IEthereumVaultConnector.sol";
+import {IEVault} from "euler-vault-kit/src/EVault/IEVault.sol";
 import {IEulerSwap} from "./interfaces/IEulerSwap.sol";
 import {CtxLib} from "./libraries/CtxLib.sol";
 import {CurveLib} from "./libraries/CurveLib.sol";

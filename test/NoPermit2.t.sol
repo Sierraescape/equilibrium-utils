@@ -2,7 +2,7 @@
 pragma solidity ^0.8.24;
 
 import {IEVault, EulerSwapTestBase, EulerSwap, TestERC20} from "./EulerSwapTestBase.t.sol";
-import {IGovernance} from "evk/EVault/IEVault.sol";
+import {IGovernance} from "euler-vault-kit/src/EVault/IEVault.sol";
 
 contract NoPermit2 is EulerSwapTestBase {
     EulerSwap public eulerSwap;

@@ -3,9 +3,9 @@ pragma solidity ^0.8.27;
 
 import {IEulerSwapCallee} from "./interfaces/IEulerSwapCallee.sol";
 
-import {EVCUtil} from "evc/utils/EVCUtil.sol";
-import {IEVC} from "evc/interfaces/IEthereumVaultConnector.sol";
-import {IEVault} from "evk/EVault/IEVault.sol";
+import {EVCUtil} from "ethereum-vault-connector/utils/EVCUtil.sol";
+import {IEVC} from "ethereum-vault-connector/interfaces/IEthereumVaultConnector.sol";
+import {IEVault} from "euler-vault-kit/src/EVault/IEVault.sol";
 
 import {IEulerSwap} from "./interfaces/IEulerSwap.sol";
 import {UniswapHook} from "./UniswapHook.sol";

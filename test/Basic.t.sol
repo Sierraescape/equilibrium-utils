@@ -4,7 +4,7 @@ pragma solidity ^0.8.24;
 import {IEVault, IEulerSwap, EulerSwapTestBase, EulerSwap, TestERC20} from "./EulerSwapTestBase.t.sol";
 import {QuoteLib} from "../src/libraries/QuoteLib.sol";
 import {CurveExtrasLib} from "./utils/CurveExtrasLib.sol";
-import {IERC4626} from "evk/EVault/IEVault.sol";
+import {IERC4626} from "euler-vault-kit/src/EVault/IEVault.sol";
 import {Math} from "openzeppelin-contracts/utils/math/Math.sol";
 
 contract Basic is EulerSwapTestBase {

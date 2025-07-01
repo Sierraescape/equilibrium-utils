@@ -12,7 +12,7 @@ import {
     BeforeSwapDelta, toBeforeSwapDelta, BeforeSwapDeltaLibrary
 } from "@uniswap/v4-core/src/types/BeforeSwapDelta.sol";
 
-import {IEVault} from "evk/EVault/IEVault.sol";
+import {IEVault} from "euler-vault-kit/src/EVault/IEVault.sol";
 
 import {IEulerSwap} from "./interfaces/IEulerSwap.sol";
 import "./Events.sol";

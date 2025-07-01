@@ -3,7 +3,7 @@ pragma solidity ^0.8.27;
 
 import {Owned} from "solmate/auth/Owned.sol";
 import {UniswapHook} from "../UniswapHook.sol";
-import {IPoolManager} from "v4-core/interfaces/IPoolManager.sol";
+import {IPoolManager} from "@uniswap/v4-core/src/interfaces/IPoolManager.sol";
 
 abstract contract ProtocolFee is Owned {
     uint256 public protocolFee;

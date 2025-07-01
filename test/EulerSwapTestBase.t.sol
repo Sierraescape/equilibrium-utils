@@ -3,7 +3,7 @@ pragma solidity ^0.8.24;
 
 import {Test, console} from "forge-std/Test.sol";
 import {EVaultTestBase, TestERC20, IRMTestDefault} from "evk-test/unit/evault/EVaultTestBase.t.sol";
-import {IEVault} from "evk/EVault/IEVault.sol";
+import {IEVault} from "euler-vault-kit/src/EVault/IEVault.sol";
 import {IEulerSwap, IEVC, EulerSwap} from "../src/EulerSwap.sol";
 import {EulerSwapFactory} from "../src/EulerSwapFactory.sol";
 import {EulerSwapPeriphery} from "../src/EulerSwapPeriphery.sol";

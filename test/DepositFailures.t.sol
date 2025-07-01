@@ -3,9 +3,9 @@ pragma solidity ^0.8.24;
 
 import {IEVault, IEulerSwap, EulerSwapTestBase, EulerSwap, TestERC20} from "./EulerSwapTestBase.t.sol";
 import {IRMTestFixed} from "evk-test/mocks/IRMTestFixed.sol";
-import {Errors as EVKErrors} from "evk/EVault/shared/Errors.sol";
+import {Errors as EVKErrors} from "euler-vault-kit/src/EVault/shared/Errors.sol";
 import {FundsLib} from "../src/libraries/FundsLib.sol";
-import "evk/EVault/shared/Constants.sol" as EVKConstants;
+import "euler-vault-kit/src/EVault/shared/Constants.sol" as EVKConstants;
 
 contract DepositFailuresTest is EulerSwapTestBase {
     EulerSwap public eulerSwap;
