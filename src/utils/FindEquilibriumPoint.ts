@@ -73,7 +73,7 @@ function fInverse(y: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: 
 
     let x;
     if (B <= 0n) {
-        x = ceilDiv((absB + thisSqrt) * PRECISION, (2n * c) + 1n);
+        x = ceilDiv((absB + thisSqrt) * PRECISION, (2n * c)) + 1n;
     } else {
         x = ceilDiv(2n * C, absB + thisSqrt) + 1n;
     }

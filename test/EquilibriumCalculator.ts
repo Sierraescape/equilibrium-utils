@@ -71,7 +71,7 @@ import { findEquilibriumPoint } from "../src/utils/FindEquilibriumPoint";
             concentrationY
             );
 
-        expect(simulated).to.be.closeTo(testResult, 1n);
+        expect(simulated).to.equal(testResult);
       });
     });
   });
