@@ -79,6 +79,17 @@ function uncheckedUintMul(a: bigint, b: bigint): bigint {
     }
 }
 
+function uncheckedIntSub(a: bigint, b: bigint): bigint {
+    const result = a - b;
+    if (result < MIN_INT) {
+        return result + (MAX_UINT + 1n);
+    } else if (result > MAX_INT) {
+        return result - (MAX_UINT + 1n);
+    } else {
+        return result;
+    }
+}
+
 function uncheckedIntMul(a: bigint, b: bigint): bigint {
     const modulo = (MAX_UINT + 1n);
     const result = a * b;
@@ -116,9 +127,11 @@ function fInverse(y: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: 
     let C;
     let fourAC;
 
-    let term1 = intCeilDiv(uncheckedIntMul(uncheckedIntMul(py, PRECISION), (y - y0)), px)
+    let term1 = intCeilDiv(uncheckedUintMul(py, PRECISION) * uncheckedUintSub(y, y0), px)
+    // term1 will always be positive and in the smart contract will revert if greater than max uint.
+    checkValidUint(term1);    
     let term2 = uncheckedIntMul(uncheckedIntMul(2n, c) - PRECISION, x0)
-    B = (term1 - term2) / PRECISION
+    B = uncheckedIntSub(term1, term2) / PRECISION
     C = ceilDiv(uncheckedUintSub(PRECISION, c) * (x0**2n), PRECISION)
     fourAC = ceilDiv(4n * c * C, PRECISION);
 
