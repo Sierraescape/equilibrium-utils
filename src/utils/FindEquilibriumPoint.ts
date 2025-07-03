@@ -90,6 +90,10 @@ function uncheckedIntMul(a: bigint, b: bigint): bigint {
     }
 }
 
+function intCeilDiv(numerator: bigint, denominator: bigint): bigint {
+    return (numerator + denominator - 1n) / denominator;
+}
+
 function ceilSqrt(n: bigint): bigint {
     const root = sqrt(n);
     return root * root < n ? root + 1n : root;
@@ -112,7 +116,7 @@ function fInverse(y: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: 
     let C;
     let fourAC;
 
-    let term1 = ceilDiv(((py * PRECISION) * (y - y0)), px)
+    let term1 = intCeilDiv(uncheckedIntMul(uncheckedIntMul(py, PRECISION), (y - y0)), px)
     let term2 = uncheckedIntMul(uncheckedIntMul(2n, c) - PRECISION, x0)
     B = (term1 - term2) / PRECISION
     C = ceilDiv(uncheckedUintSub(PRECISION, c) * (x0**2n), PRECISION)
