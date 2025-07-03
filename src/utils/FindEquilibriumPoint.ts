@@ -27,6 +27,9 @@ const sqrt = function (value: bigint) {
 }
 
 const PRECISION = 10n ** 18n;
+const MAX_UINT = 2n ** 256n - 1n;
+const MAX_INT = 2n ** 255n - 1n;
+const MIN_INT = -(2n ** 255n);
 
 function checkValidUint(
     value: bigint,
@@ -52,6 +55,31 @@ function uintSub(a: bigint, b: bigint, uintType: bigint = 256n): bigint {
     return result;
 }
 
+function uncheckedUintSub(a: bigint, b: bigint): bigint {
+    const result = a - b;
+    if (result < 0n) {
+        return MAX_UINT + result + 1n;
+    } else {
+        return result;
+    }
+}
+
+function uncheckedUintMul(a: bigint, b: bigint): bigint {
+    const result = a * b;
+    if (result > MAX_UINT) {
+        return result % (MAX_UINT + 1n);
+    } else {
+        return result;
+    }
+}
+
+function uncheckedIntMul(a: bigint, b: bigint): bigint {
+    const modulo = (MAX_INT + 1n);
+    const result = a * b;
+    const wrapped = ((result - MIN_INT) % modulo + modulo) % modulo + MIN_INT;
+    return wrapped;
+}
+
 function ceilSqrt(n: bigint): bigint {
     const root = sqrt(n);
     return root * root < n ? root + 1n : root;
@@ -75,9 +103,9 @@ function fInverse(y: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: 
     let fourAC;
 
     let term1 = ceilDiv(((py * PRECISION) * (y - y0)), px)
-    let term2 = (2n * c - PRECISION) * x0
+    let term2 = uncheckedIntMul(uncheckedIntMul(2n, c) - PRECISION, x0)
     B = (term1 - term2) / PRECISION
-    C = ceilDiv((PRECISION - c) * (x0**2n), PRECISION)
+    C = ceilDiv(uncheckedUintSub(PRECISION, c) * (x0**2n), PRECISION)
     fourAC = ceilDiv(4n * c * C, PRECISION);
 
     const absB = B < 0n ? -B : B;
