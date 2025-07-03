@@ -252,6 +252,18 @@ import { EquilibriumCalculator } from "../typechain-types";
             currentReserve0: 1n,
             currentReserve1: 1000n
         });
+
+        await test({
+            calculator: equilibriumCalculator,
+            priceX: hre.ethers.MaxUint256,
+            priceY: 1n,
+            concentrationX: 0n,
+            concentrationY: 0n,
+            amountIn: 1n,
+            exactIn: false,
+            currentReserve0: 1n,
+            currentReserve1: MAX_UINT112
+        });
     });
 
       it("Generally matches contract behavior", async function () {
