@@ -61,6 +61,15 @@ function uintMul(a: bigint, b: bigint, uintType: bigint = 256n): bigint {
     return result;
 }
 
+function uncheckedUintAdd(a: bigint, b: bigint): bigint {
+    const result = a + b;
+    if (result > MAX_UINT) {
+        return result % (MAX_UINT + 1n);
+    } else {
+        return result;
+    }
+}
+
 function uncheckedUintSub(a: bigint, b: bigint): bigint {
     const result = a - b;
     if (result < 0n) {
@@ -117,7 +126,14 @@ function ceilDiv(numerator: bigint, denominator: bigint, uintType: bigint = 256n
 }
 
 function f(x: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: bigint): bigint {
-    const v = ceilDiv(((px * (x0 - x)) * (c * x + (PRECISION - c) * x0)), x * PRECISION)
+    const v = ceilDiv(
+        (
+            uncheckedUintMul(px, (x0 - x)) * 
+            (
+                uncheckedUintAdd(uncheckedUintMul(c, x), uncheckedUintMul(uncheckedUintSub(PRECISION, c), x0))
+            )
+        ), x * PRECISION
+    )
     checkValidUint(v, 248n);
     return y0 + ceilDiv(v, py);
 }
@@ -203,7 +219,7 @@ export function findEquilibriumPoint(
             }
             output = currentReserve1 > yNew ? currentReserve1 - yNew : 0n;
         } else {
-            yNew = currentReserve1 + amount;
+            yNew = uintAdd(currentReserve1, amount);
             if (yNew <= equilibriumReserve1) {
                 xNew = f(yNew, price1, price0, equilibriumReserve1, equilibriumReserve0, concentration1);
             } else {
