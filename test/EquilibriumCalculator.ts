@@ -191,6 +191,17 @@ import { EquilibriumCalculator } from "../typechain-types";
             currentReserve0: 1n,
             currentReserve1: 1000n
         })
+
+        await test({
+            calculator: equilibriumCalculator,
+            priceX: 0n,
+            priceY: 1n,
+            concentrationX: 0n,
+            concentrationY: hre.ethers.MaxUint256,
+            amountIn: 1n,
+            currentReserve0: 1000n,
+            currentReserve1: 0n
+        })
       })
 
       it("Generally matches contract behavior", async function () {
