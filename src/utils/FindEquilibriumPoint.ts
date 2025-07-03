@@ -77,7 +77,7 @@ function fInverse(y: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: 
     let term1 = ceilDiv(((py * PRECISION) * (y - y0)), px)
     let term2 = (2n * c - PRECISION) * x0
     B = (term1 - term2) / PRECISION
-    C = ceilDiv(uintSub(PRECISION, c) * (x0**2n), PRECISION)
+    C = ceilDiv((PRECISION - c) * (x0**2n), PRECISION)
     fourAC = ceilDiv(4n * c * C, PRECISION);
 
     const absB = B < 0n ? -B : B;
