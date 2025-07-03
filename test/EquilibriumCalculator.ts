@@ -160,6 +160,26 @@ import { EquilibriumCalculator } from "../typechain-types";
             concentrationY: 0n,
             amountIn: hre.ethers.MaxUint256,
         });
+
+        await test({
+            calculator: equilibriumCalculator,
+            priceX: 0n,
+            priceY: 1n,
+            concentrationX: 0n,
+            concentrationY: 10n ** 36n,
+            amountIn: 1n
+        });
+
+        await test({
+            calculator: equilibriumCalculator,
+            priceX: 0n,
+            priceY: 1n,
+            concentrationX: 0n,
+            concentrationY: 10n**36n,
+            amountIn: 1n,
+            currentReserve0: 10n**24n,
+            currentReserve1: 0n
+        })
       })
 
       it("Generally matches contract behavior", async function () {
