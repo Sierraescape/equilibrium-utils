@@ -40,6 +40,12 @@ function checkValidUint(
     }
 }
 
+function uintAdd(a: bigint, b: bigint, uintType: bigint = 256n): bigint {
+    const result = a + b;
+    checkValidUint(result, uintType);
+    return result;
+}
+
 function ceilSqrt(n: bigint): bigint {
     const root = sqrt(n);
     return root * root < n ? root + 1n : root;
@@ -126,7 +132,7 @@ export function findEquilibriumPoint(
 
     if (exactIn) {
         if (asset0IsInput) {
-            xNew = currentReserve0 + amount;
+            xNew = uintAdd(currentReserve0, amount);
             if (xNew <= equilibriumReserve0) {
                 yNew = f(xNew, price0, price1, equilibriumReserve0, equilibriumReserve1, concentration0);
             } else {
