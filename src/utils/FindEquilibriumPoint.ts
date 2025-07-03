@@ -125,6 +125,11 @@ function ceilDiv(numerator: bigint, denominator: bigint, uintType: bigint = 256n
     return result;
 }
 
+function uncheckedCeilDiv(numerator: bigint, denominator: bigint): bigint {
+    const additionResult = uncheckedUintAdd(numerator, denominator - 1n);
+    return additionResult / denominator;
+}
+
 function f(x: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: bigint): bigint {
     const v = ceilDiv(
         (
@@ -132,10 +137,10 @@ function f(x: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: bigint)
             (
                 uncheckedUintAdd(uncheckedUintMul(c, x), uncheckedUintMul(uncheckedUintSub(PRECISION, c), x0))
             )
-        ), x * PRECISION
+        ), uncheckedUintMul(x, PRECISION)
     )
     checkValidUint(v, 248n);
-    return y0 + ceilDiv(v, py);
+    return y0 + uncheckedCeilDiv(v, py);
 }
 
 function fInverse(y: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: bigint): bigint {
