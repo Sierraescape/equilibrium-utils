@@ -46,13 +46,21 @@ function uintAdd(a: bigint, b: bigint, uintType: bigint = 256n): bigint {
     return result;
 }
 
+function uintSub(a: bigint, b: bigint, uintType: bigint = 256n): bigint {
+    const result = a - b;
+    checkValidUint(result, uintType);
+    return result;
+}
+
 function ceilSqrt(n: bigint): bigint {
     const root = sqrt(n);
     return root * root < n ? root + 1n : root;
 }
 
-function ceilDiv(numerator: bigint, denominator: bigint): bigint {
-    return (numerator + denominator - 1n) / denominator;
+function ceilDiv(numerator: bigint, denominator: bigint, uintType: bigint = 256n): bigint {
+    const result = (numerator + denominator - 1n) / denominator;
+    checkValidUint(result, uintType);
+    return result;
 }
 
 function f(x: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: bigint): bigint {
@@ -68,8 +76,8 @@ function fInverse(y: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: 
 
     let term1 = ceilDiv(((py * PRECISION) * (y - y0)), px)
     let term2 = (2n * c - PRECISION) * x0
-    B = (term1 - term2) / PRECISION
-    C = ceilDiv((PRECISION - c) * (x0**2n), PRECISION)
+    B = uintSub(term1, term2) / PRECISION
+    C = ceilDiv(uintSub(PRECISION, c) * (x0**2n), PRECISION)
     fourAC = ceilDiv(4n * c * C, PRECISION);
 
     const absB = B < 0n ? -B : B;
