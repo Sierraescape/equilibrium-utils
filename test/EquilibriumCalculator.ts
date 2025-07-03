@@ -228,7 +228,31 @@ import { EquilibriumCalculator } from "../typechain-types";
             currentReserve0: 0n,
             currentReserve1: MAX_UINT112
         });
-      })
+
+        await test({
+            calculator: equilibriumCalculator,
+            priceX: 1n,
+            priceY: 0n,
+            concentrationX: 0n,
+            concentrationY: 0n,
+            amountIn: hre.ethers.MaxUint256,
+            assetZeroIsInput: false,
+            currentReserve0: 1n,
+            currentReserve1: 1n
+        })
+
+        await test({
+            calculator: equilibriumCalculator,
+            priceX: 1n,
+            priceY: 1n,
+            concentrationX: 0n,
+            concentrationY: hre.ethers.MaxUint256,
+            amountIn: 1n,
+            exactIn: false,
+            currentReserve0: 1n,
+            currentReserve1: 1000n
+        });
+    });
 
       it("Generally matches contract behavior", async function () {
         const { equilibriumCalculator } = await loadFixture(deployFixture);
