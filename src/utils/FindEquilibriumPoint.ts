@@ -55,6 +55,12 @@ function uintSub(a: bigint, b: bigint, uintType: bigint = 256n): bigint {
     return result;
 }
 
+function uintMul(a: bigint, b: bigint, uintType: bigint = 256n): bigint {
+    const result = a * b;
+    checkValidUint(result, uintType);
+    return result;
+}
+
 function uncheckedUintSub(a: bigint, b: bigint): bigint {
     const result = a - b;
     if (result < 0n) {
@@ -119,9 +125,9 @@ function fInverse(y: bigint, px: bigint, py: bigint, x0: bigint, y0: bigint, c: 
 
     let x;
     if (B <= 0n) {
-        x = ceilDiv((absB + thisSqrt) * PRECISION, (2n * c)) + 1n;
+        x = uintAdd(ceilDiv((absB + thisSqrt) * PRECISION, uintMul(2n, c)), 1n);
     } else {
-        x = ceilDiv(2n * C, absB + thisSqrt) + 1n;
+        x = uintAdd(ceilDiv(uintMul(2n, C), uintAdd(absB, thisSqrt)), 1n);
     }
 
     if (x >= x0) {
