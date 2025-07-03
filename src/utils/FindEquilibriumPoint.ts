@@ -74,10 +74,14 @@ function uncheckedUintMul(a: bigint, b: bigint): bigint {
 }
 
 function uncheckedIntMul(a: bigint, b: bigint): bigint {
-    const modulo = (MAX_INT + 1n);
+    const modulo = (MAX_UINT + 1n);
     const result = a * b;
-    const wrapped = ((result - MIN_INT) % modulo + modulo) % modulo + MIN_INT;
-    return wrapped;
+    const unsignedResult = result % modulo;
+    if (unsignedResult > MAX_INT) {
+        return unsignedResult - modulo;
+    } else {
+        return unsignedResult;
+    }
 }
 
 function ceilSqrt(n: bigint): bigint {
